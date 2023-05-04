@@ -1,9 +1,37 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import { FaGoogle, FaGithub, FaEye, FaEyeSlash } from "react-icons/fa";
 import banner from "../../../assets/banner.png";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../Provider/AuthProvider";
+import { notifyError } from "../../../alert/Alert";
+// loginWithGoogle, loginWithGithub,
 
 const Login = () => {
+  const [show, setShow] = useState(false);
+  const { logIn, setLoading } = useContext(AuthContext);
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const { email, password } = form.elements;
+    logIn(email.value, password.value)
+      .then((userCredential) => {
+        // Signed in
+        const user = userCredential.user;
+        console.log(user);
+        form.reset();
+        setLoading(false);
+        // ...
+      })
+      .catch((error) => {
+        setLoading(false);
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        notifyError(errorMessage);
+        // ..
+      });
+  };
+
   return (
     <div>
       <section className="bg-gray-50 min-h-screen flex items-center justify-center">
@@ -14,21 +42,33 @@ const Login = () => {
               If you are already a member, easily log in
             </p>
 
-            <form action="" className="flex flex-col gap-4">
+            <form onSubmit={handleLogin} className="flex flex-col gap-4">
               <input
                 className="p-2 mt-8 rounded-xl border"
                 type="email"
                 name="email"
                 placeholder="Email"
+                required
               />
               <div className="relative">
                 <input
                   className="p-2 rounded-xl border w-full"
-                  type="password"
+                  type={show ? "text" : "password"}
                   name="password"
                   placeholder="Password"
+                  required
                 />
-                <FaEye className="absolute right-3 top-[35%] text-gray-400"></FaEye>
+                {show ? (
+                  <FaEyeSlash
+                    onClick={() => setShow(!show)}
+                    className="absolute right-3 top-[35%] text-gray-400"
+                  ></FaEyeSlash>
+                ) : (
+                  <FaEye
+                    onClick={() => setShow(!show)}
+                    className="absolute right-3 top-[35%] text-gray-400"
+                  ></FaEye>
+                )}
               </div>
               <button className="btn btn-primary rounded-xl text-white py-2 hover:scale-105 duration-300">
                 Login
@@ -56,17 +96,17 @@ const Login = () => {
 
             <div className="mt-3 text-xs flex justify-between items-center text-[#002D74]">
               <p>Don't have an account?</p>
-              <Link to="/signup" className="py-2 px-5 bg-white border text-primary rounded-xl hover:scale-110 duration-300">
+              <Link
+                to="/signup"
+                className="py-2 px-5 bg-white border text-primary rounded-xl hover:scale-110 duration-300"
+              >
                 Register
               </Link>
             </div>
           </div>
 
           <div className="md:block hidden w-1/2">
-            <img
-              className="rounded-2xl"
-              src={banner}
-            />
+            <img className="rounded-2xl" src={banner} />
           </div>
         </div>
       </section>

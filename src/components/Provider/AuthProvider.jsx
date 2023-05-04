@@ -1,7 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { createContext } from "react";
 
-import { getAuth, createUserWithEmailAndPassword, signOut, updateProfile } from "firebase/auth";
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  signOut,
+  updateProfile,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
 import app from "../../firebase/firebase.config";
 import Spinner from "../spinner/Spinner";
 
@@ -25,6 +31,11 @@ const AuthProvider = ({ children }) => {
     });
   };
 
+  const logIn = (email, password) => {
+    setLoading(true);
+    return signInWithEmailAndPassword(auth, email, password);
+  };
+
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       setUser(user);
@@ -41,6 +52,7 @@ const AuthProvider = ({ children }) => {
     setLoading,
     register,
     updateUser,
+    logIn,
   };
 
   return (
