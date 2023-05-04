@@ -17,8 +17,6 @@ const Login = () => {
     logIn(email.value, password.value)
       .then((userCredential) => {
         // Signed in
-        const user = userCredential.user;
-        console.log(user);
         form.reset();
         setLoading(false);
         // ...

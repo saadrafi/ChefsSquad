@@ -47,9 +47,9 @@ const Treanding = () => {
         modules={[Autoplay, Pagination, Navigation]}
         className="mySwiper"
       >
-        {data.map((recipe) => (
-          <SwiperSlide>
-            <SingleRecipe data={recipe} key={recipe.recipe_id}></SingleRecipe>
+        {data.map((rec) => (
+          <SwiperSlide key={rec.recipe_id}>
+            <SingleRecipe data={rec} key={rec.recipe_id}></SingleRecipe>
           </SwiperSlide>
         ))}
       </Swiper>

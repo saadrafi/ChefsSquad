@@ -3,7 +3,6 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 const SingleRecipe = ({ data }) => {
-  console.log(data);
   const { recipe_name, image } = data;
   return (
     <div className="card w-full  bg-base-100 shadow-xl">
