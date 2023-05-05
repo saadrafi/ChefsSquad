@@ -11,7 +11,7 @@ import SingleRecipe from "./SingleRecipe";
 const Treanding = () => {
   const [data, SetData] = useState([]);
   useEffect(() => {
-    fetch("http://localhost:3000/trending")
+    fetch("https://chef-server-saadrafi.vercel.app/trending")
       .then((res) => res.json())
       .then((data) => SetData(data));
   }, []);

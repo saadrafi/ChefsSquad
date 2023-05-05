@@ -18,7 +18,7 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Home></Home>,
-        loader: () => fetch("http://localhost:3000/chefs"),
+        loader: () => fetch("https://chef-server-saadrafi.vercel.app/chefs"),
       },
       {
         path: "/login",
@@ -36,7 +36,7 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) => {
-          return fetch(`http://localhost:3000/chefrecipe/${params.chefId}`);
+          return fetch(`https://chef-server-saadrafi.vercel.app/chefrecipe/${params.chefId}`);
         },
       },
       {
@@ -46,7 +46,7 @@ const router = createBrowserRouter([
       {
         path: "/blog",
         element: <BlogPage></BlogPage>,
-      }
+      },
     ],
   },
 ]);
