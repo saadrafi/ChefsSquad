@@ -5,7 +5,6 @@ import { AuthContext } from "../Provider/AuthProvider";
 
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
-  console.log(user);
   return (
     <div className="navbar w-[90%] mx-auto bg-base-100">
       <div className="flex justify-between w-full">
@@ -35,16 +34,18 @@ const Navbar = () => {
             </NavLink>
           </div>
           <div className="flex flex-row items-center ml-auto gap-3">
-            <div
-              className="h-[40px] w-[40px] tooltip tooltip-bottom tooltip-info"
-              data-tip={user?.displayName ? user?.displayName : null}
-            >
-              {user?.photoURL ? (
-                <img src={user?.photoURL} alt="user" className="h-full w-full rounded-full" />
-              ) : (
-                <FaUser className="h-full w-full"></FaUser>
-              )}
-            </div>
+            {user && (
+              <div
+                className="h-[40px] w-[40px] tooltip tooltip-bottom tooltip-info"
+                data-tip={user?.displayName ? user?.displayName : null}
+              >
+                {user?.photoURL ? (
+                  <img src={user?.photoURL} alt="user" className="h-full w-full rounded-full" />
+                ) : (
+                  <FaUser className="h-full w-full"></FaUser>
+                )}
+              </div>
+            )}
             {user ? (
               <Link onClick={logOut} className="btn btn-primary">
                 LogOut

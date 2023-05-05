@@ -26,8 +26,8 @@ const SIngleRecipeCard = ({ recipe }) => {
           <h2 className=" text-2xl font-bold text-primary">{recipe_name}</h2>
           <p>
             <span className="font-semibold text-lg">Ingredients</span>
-            {ingredients.map((i) => {
-              return <li>{i}</li>;
+            {ingredients.map((i,index) => {
+              return <li key={index}>{i}</li>;
             })}
           </p>
           <p>

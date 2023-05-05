@@ -1,9 +1,10 @@
 import React from "react";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { Link } from "react-router-dom";
 
 const SingleRecipe = ({ data }) => {
-  const { recipe_name, image } = data;
+  const { recipe_name, image, chef_id } = data;
   return (
     <div className="card w-full  bg-base-100 shadow-xl">
       <figure>
@@ -15,7 +16,9 @@ const SingleRecipe = ({ data }) => {
           <div className="badge badge-secondary">Treanding</div>
         </h2>
         <div className="card-actions  justify-end">
-          <button className="btn btn-primary">View Recipe</button>
+          <Link to={`/chefrecipe/${chef_id}`} className="btn btn-primary">
+            View Recipe
+          </Link>
         </div>
       </div>
     </div>

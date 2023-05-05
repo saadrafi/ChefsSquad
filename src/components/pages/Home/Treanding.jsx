@@ -10,7 +10,6 @@ import SingleRecipe from "./SingleRecipe";
 
 const Treanding = () => {
   const [data, SetData] = useState([]);
-  console.log(data);
   useEffect(() => {
     fetch("http://localhost:3000/trending")
       .then((res) => res.json())

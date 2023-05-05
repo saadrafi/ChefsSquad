@@ -5,7 +5,6 @@ import ChefBanner from "./ChefBanner";
 
 const ChefRecipe = () => {
   const recipes = useLoaderData();
-  console.log(recipes);
 
   const { chefId } = useParams();
 

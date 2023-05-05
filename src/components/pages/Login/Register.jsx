@@ -11,15 +11,12 @@ const Register = () => {
 
   const location = useLocation();
   const navigate = useNavigate();
-  console.log(location);
   const from = location.state?.from || "/";
-  console.log(from);
 
   const handleRegister = (e) => {
     e.preventDefault();
     const form = e.target;
     const { name, email, password, image } = form.elements;
-    console.log(name.value, email.value, password.value, image.value);
     if (password.value.length < 6) {
       notifyWarning("Password must be at least 6 characters long");
       return;
@@ -31,7 +28,6 @@ const Register = () => {
         const user = userCredential.user;
         updateUser(name.value, image.value)
           .then(() => {
-            console.log("User Updated");
             setLoading(false);
             navigate(from, { replace: true });
           })
