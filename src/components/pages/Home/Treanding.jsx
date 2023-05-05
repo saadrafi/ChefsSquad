@@ -17,7 +17,7 @@ const Treanding = () => {
   }, []);
   return (
     <div className="w-[90%] mx-auto my-16">
-      <h1 className="text-4xl text-center font-bold mt-10">Trending Recipes</h1>
+      <h1 className="text-4xl text-center text-primary font-bold mt-10">Trending Recipes</h1>
       <p className="text-center text-gray-500 my-4">Explore the treanding recipes </p>
 
       <Swiper
