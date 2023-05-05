@@ -1,9 +1,10 @@
-import React from 'react';
-import { createBrowserRouter} from "react-router-dom";
-import Main from '../layouts/Main';
-import Home from '../pages/Home/Home';
-import Login from '../pages/Login/Login';
-import Register from '../pages/Login/Register';
+import React from "react";
+import { createBrowserRouter } from "react-router-dom";
+import Main from "../layouts/Main";
+import Home from "../pages/Home/Home";
+import Login from "../pages/Login/Login";
+import Register from "../pages/Login/Register";
+import ChefRecipe from "../pages/ChefRecipe/ChefRecipe";
 
 const router = createBrowserRouter([
   {
@@ -16,12 +17,19 @@ const router = createBrowserRouter([
         loader: () => fetch("http://localhost:3000/chefs"),
       },
       {
-        path:"/login",
-        element:<Login></Login>
+        path: "/login",
+        element: <Login></Login>,
       },
       {
         path: "/signup",
-        element:<Register></Register>
+        element: <Register></Register>,
+      },
+      {
+        path: "/chefrecipe/:chefId",
+        element: <ChefRecipe></ChefRecipe>,
+        loader: ({ params }) => {
+          return fetch(`http://localhost:3000/chefrecipe/${params.chefId}`);
+        },
       },
       {
         path: "/about",
@@ -30,6 +38,5 @@ const router = createBrowserRouter([
     ],
   },
 ]);
-
 
 export default router;
