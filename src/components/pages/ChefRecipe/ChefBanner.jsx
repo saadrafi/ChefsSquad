@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
+import LazyLoad from "react-lazy-load";
 import { AiFillLike } from "react-icons/ai";
 
 const ChefBanner = ({ chefId }) => {
   const [chefData, setChefData] = useState({});
 
   useEffect(() => {
-    fetch(`http://localhost:3000/chefs/${chefId}`)
+    fetch(`https://chef-server-saadrafi.vercel.app/chefs/${chefId}`)
       .then((res) => res.json())
       .then((data) => setChefData(data));
   }, []);
@@ -16,7 +17,9 @@ const ChefBanner = ({ chefId }) => {
     <div className="my-12">
       <div className="w-[90%] mx-auto flex flex-col lg:flex-row bg-base-100 justify-around items-center gap-3">
         <div className=" w-1/2 h-full flex-1">
-          <img src={chef_picture} className="w-full h-full rounded" alt="" />
+          <LazyLoad>
+            <img className="w-full h-full" src={chef_picture} alt="Chef" />
+          </LazyLoad>
         </div>
         <div className="flex flex-col gap-3 flex-1 px-4">
           <h1 className=" text-center text-3xl text-primary font-bold">{chef_name}</h1>
@@ -29,6 +32,7 @@ const ChefBanner = ({ chefId }) => {
           </p>
           <p className="flex items-center gap-2 text-lg">
             <AiFillLike></AiFillLike>
+
             <span className="text-primary font-medium">{likes} likes</span>
           </p>
         </div>
