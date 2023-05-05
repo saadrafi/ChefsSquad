@@ -4,12 +4,12 @@ import banner from "../../../assets/banner.png";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../Provider/AuthProvider";
 import { notifyError } from "../../../alert/Alert";
-import { GoogleAuthProvider } from "firebase/auth";
+import { GithubAuthProvider, GoogleAuthProvider } from "firebase/auth";
 // , loginWithGithub,
 
 const Login = () => {
   const [show, setShow] = useState(false);
-  const { logIn, setLoading, loginWithGoogle } = useContext(AuthContext);
+  const { logIn, setLoading, loginWithProvider } = useContext(AuthContext);
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -31,16 +31,19 @@ const Login = () => {
       });
   };
 
-  const provider = new GoogleAuthProvider();
+  const googleProvider = new GoogleAuthProvider();
+  const githubProvider = new GithubAuthProvider();
 
   const logInWithGoogle = () => {
-    loginWithGoogle(provider)
+    loginWithProvider(googleProvider)
       .then((userCredential) => {
         // Signed in
+        setLoading(false);
         const user = userCredential.user;
         // ...
       })
       .catch((error) => {
+        setLoading(false)
         const errorCode = error.code;
         const errorMessage = error.message;
         notifyError(errorMessage);
@@ -49,6 +52,28 @@ const Login = () => {
         notifyError(email);
         // The AuthCredential type that was used.
         const credential = GoogleAuthProvider.credentialFromError(error);
+        // ...
+      });
+  };
+
+  const logInWithGithub = () => {
+    loginWithProvider(githubProvider)
+      .then((userCredential) => {
+        // Signed in
+        setLoading(false);
+        const user = userCredential.user;
+        // ...
+      })
+      .catch((error) => {
+        setLoading(false)
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        notifyError(errorMessage);
+        // The email of the user's account used.
+        const email = error.email;
+        notifyError(email);
+        // The AuthCredential type that was used.
+        const credential = GithubAuthProvider.credentialFromError(error);
         // ...
       });
   };
@@ -109,7 +134,10 @@ const Login = () => {
               <FaGoogle></FaGoogle>
               Login with Google
             </button>
-            <button className="bg-white border py-2 w-full rounded-xl mt-5 flex gap-2 justify-center items-center text-sm hover:scale-105 duration-300 text-primary">
+            <button
+              onClick={logInWithGithub}
+              className="bg-white border py-2 w-full rounded-xl mt-5 flex gap-2 justify-center items-center text-sm hover:scale-105 duration-300 text-primary"
+            >
               <FaGithub></FaGithub>
               Login with Github
             </button>
