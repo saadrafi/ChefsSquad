@@ -7,12 +7,12 @@ const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
   return (
     <div className="navbar w-[90%] mx-auto bg-base-100">
-      <div className="flex justify-between w-full">
+      <div className="flex justify-between flex-col lg:flex-row w-full">
         <Link to="/" className="font-extrabold cursor-pointer text-3xl ">
           <span>Chef's</span>
           <span className=" text-green-700">Squad</span>
         </Link>
-        <div className="flex lg:flex-row">
+        <div className="flex lg:flex-row flex-col">
           <div>
             <NavLink
               to="/"
@@ -33,7 +33,7 @@ const Navbar = () => {
               Blog
             </NavLink>
           </div>
-          <div className="flex flex-row items-center ml-auto gap-3">
+          <div className="flex flex-row items-center ml-9 gap-3">
             {user && (
               <div
                 className="h-[40px] w-[40px] tooltip tooltip-bottom tooltip-info"
