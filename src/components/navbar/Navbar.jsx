@@ -37,7 +37,7 @@ const Navbar = () => {
           <div className="flex flex-row items-center ml-auto gap-3">
             <div
               className="h-[40px] w-[40px] tooltip tooltip-bottom tooltip-info"
-              data-tip={user?.displayName ? user?.displayName : "User"}
+              data-tip={user?.displayName ? user?.displayName : null}
             >
               {user?.photoURL ? (
                 <img src={user?.photoURL} alt="user" className="h-full w-full rounded-full" />

@@ -7,6 +7,8 @@ import {
   signOut,
   updateProfile,
   signInWithEmailAndPassword,
+  
+  signInWithPopup,
 } from "firebase/auth";
 import app from "../../firebase/firebase.config";
 import Spinner from "../spinner/Spinner";
@@ -36,6 +38,12 @@ const AuthProvider = ({ children }) => {
     return signInWithEmailAndPassword(auth, email, password);
   };
 
+  const loginWithGoogle=(provider)=>
+    {
+        setLoading(true);
+        return signInWithPopup(auth, provider);
+    }
+
     const logOut = () => {
     setLoading(true);
     return signOut(auth);
@@ -58,6 +66,7 @@ const AuthProvider = ({ children }) => {
     register,
     updateUser,
     logIn,
+    loginWithGoogle,
     logOut,
   };
 
