@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import { FaGoogle, FaGithub, FaEye, FaEyeSlash } from "react-icons/fa";
 import banner from "../../../assets/banner.png";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Provider/AuthProvider";
 import { notifyError } from "../../../alert/Alert";
 import { GithubAuthProvider, GoogleAuthProvider } from "firebase/auth";
@@ -10,6 +10,10 @@ import { GithubAuthProvider, GoogleAuthProvider } from "firebase/auth";
 const Login = () => {
   const [show, setShow] = useState(false);
   const { logIn, setLoading, loginWithProvider } = useContext(AuthContext);
+
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -20,6 +24,7 @@ const Login = () => {
         // Signed in
         form.reset();
         setLoading(false);
+        navigate(from, { replace: true });
         // ...
       })
       .catch((error) => {
@@ -39,11 +44,12 @@ const Login = () => {
       .then((userCredential) => {
         // Signed in
         setLoading(false);
+        navigate(from, { replace: true });
         const user = userCredential.user;
         // ...
       })
       .catch((error) => {
-        setLoading(false)
+        setLoading(false);
         const errorCode = error.code;
         const errorMessage = error.message;
         notifyError(errorMessage);
@@ -61,11 +67,12 @@ const Login = () => {
       .then((userCredential) => {
         // Signed in
         setLoading(false);
+        navigate(from, { replace: true });
         const user = userCredential.user;
         // ...
       })
       .catch((error) => {
-        setLoading(false)
+        setLoading(false);
         const errorCode = error.code;
         const errorMessage = error.message;
         notifyError(errorMessage);
@@ -150,6 +157,7 @@ const Login = () => {
               <p>Don't have an account?</p>
               <Link
                 to="/signup"
+                state={{ from: from }}
                 className="py-2 px-5 bg-white border text-primary rounded-xl hover:scale-110 duration-300"
               >
                 Register

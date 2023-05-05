@@ -3,7 +3,6 @@ import { FaRegHeart } from "react-icons/fa";
 import { notifySuccess } from "../../../alert/Alert";
 import { Rating } from "@smastrom/react-rating";
 
-
 const SIngleRecipeCard = ({ recipe }) => {
   const [seeMore, setSeeMore] = useState(false);
   const [favorite, setFavorite] = useState(false);
@@ -40,9 +39,10 @@ const SIngleRecipeCard = ({ recipe }) => {
             </button>
           </p>
 
-          <p className="flex items-center gap-2">
-            <Rating style={{ maxWidth: 180 }} value={rating} readOnly /> <span className="text-lg">{rating}</span>
-          </p>
+          <div className="flex items-center gap-2">
+            <Rating style={{ maxWidth: 180 }} value={rating} readOnly />{" "}
+            <span className="text-lg">{rating}</span>
+          </div>
           <div className="card-actions justify-end">
             <button
               onClick={handleFavorite}

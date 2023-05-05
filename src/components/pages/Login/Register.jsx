@@ -1,13 +1,19 @@
 import React, { useContext, useState } from "react";
 import { FaGoogle, FaGithub, FaEye, FaEyeSlash } from "react-icons/fa";
 import banner from "../../../assets/banner.png";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Provider/AuthProvider";
 import { notifyError, notifyWarning } from "../../../alert/Alert";
 
 const Register = () => {
   const [show, setShow] = useState(false);
   const { register, updateUser, setLoading } = useContext(AuthContext);
+
+  const location = useLocation();
+  const navigate = useNavigate();
+  console.log(location);
+  const from = location.state?.from || "/";
+  console.log(from);
 
   const handleRegister = (e) => {
     e.preventDefault();
@@ -27,6 +33,7 @@ const Register = () => {
           .then(() => {
             console.log("User Updated");
             setLoading(false);
+            navigate(from, { replace: true });
           })
           .catch((error) => {
             notifyError(error.message);
